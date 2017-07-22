@@ -17,25 +17,25 @@ export const VALIDATION_ACCOUNTS_UPDATE ={
         type: Joi.string().valid(USER_ACCOUNT,COMPANY_ACCOUNT),// User hoặc công ty
         name: Joi.string().max(200),
         lastName: Joi.string().max(200),
-        taxCode: Joi.string().when('type', { is: COMPANY_ACCOUNT, then: Joi.required() }),
+        taxCode: Joi.string(),
         address: Joi.string().max(200),
         location: Joi.object().keys({
             lon:Joi.number().min(-180).max(180),
             lat:Joi.number().min(-180).max(180),
         }),
-        city: Joi.string().max(50).required(),
-        country: Joi.string().max(50).required(),
+        city: Joi.string().max(50),
+        country: Joi.string().max(50),
         district: Joi.string().max(50),
         phone: Joi.string().max(15),
         fax: Joi.string().max(15),
         website: Joi.string().max(200),
-        email: Joi.string().email().required(),
+        email: Joi.string().email(),
         language: Validation.LANGUAGE,
-        password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
         avatar: Validation.LOGO,
         emailNotifications: Joi.object().keys(),
     }
 }
+
 
 export const VALIDATION_ACCOUNTS_UPDATE_EMAIL_NOTIFY ={
     options: { allowUnknownBody: false },
