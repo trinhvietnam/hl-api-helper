@@ -1,37 +1,35 @@
-import {
-    DOCUMENT, CATEGORY_PROJECT, RATING, MATERIAL_PROJECT, BIDDING_CATEGORY,
-    PROJECT, CONTRACTOR, BIDDING, ACCOUNT
-} from "../constants/database/EntityName";
-import {Validation} from "../constants/schema/Validation";
-import {validate} from "joi";
-import {CURRENCY_UNIT_VND,CURRENCY_UNIT_USD} from "../constants/database/Common";
+
 /**
  * Created by nam on 3/26/2017.
  */
 /*
  * Validation for rounter extras
  * */
+import {PROJECT, CONTRACTOR, BIDDING_CATEGORY, ACCOUNT, BIDDING} from "../../constants/database/EntityName";
+import {Validation} from "../../constants/schema/Validation";
 var Joi = require('joi');
 export const VALIDATION_LIST_BIDDING_CATEGORY = {
     options: {allowUnknownBody: false},
     body: {
-        ownerId: Joi.number().required(),
-        ownerType: Joi.string().valid(PROJECT, CONTRACTOR, BIDDING_CATEGORY).required()
+        projectId: Joi.number().required(),
     }
 }
 export const VALIDATION_DELETE_BIDDING_CATEGORY = {
     options: {allowUnknownBody: false},
     body: {
-        ownerId: Validation.ID.required(),
-        id: Validation.ID.required()
+        projectId: Validation.ID.required(),
+        id: Validation.ID.required(),
+        deleteById: Validation.ID.required(),
+        deleteByType: Joi.string().valid(PROJECT,CONTRACTOR).required(),
     }
 }
 
 export const VALIDATION_CREATE_BIDDING_ITEM = {
     options: {allowUnknownBody: false},
     body: {
-        ownerId: Joi.number().required(),
-        ownerType: Joi.string().valid(PROJECT).required(),
+        projectId: Joi.number().required(),
+        createById: Joi.number().required(),
+        createByType: Joi.string().valid(PROJECT,CONTRACTOR).required(),
         typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR.required(),
         // typeOfContruction: Validation.TYPE_OF_CONTRUCTION,
         // typeOfProject: Validation.TYPE_OF_PROJECT,
@@ -86,8 +84,9 @@ export const VALIDATION_UPDATE_BIDDING_ITEM = {
     options: {allowUnknownBody: false},
     body: {
         id: Validation.ID.required(),
-        ownerId: Joi.number().required(),
-        ownerType: Joi.string().valid(PROJECT).required(),
+        projectId: Joi.number().required(),
+        updateById: Joi.number().required(),
+        updateByType: Joi.string().valid(PROJECT,CONTRACTOR).required(),
         typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR,
         // typeOfContruction: Validation.TYPE_OF_CONTRUCTION,
         // typeOfProject: Validation.TYPE_OF_PROJECT,
