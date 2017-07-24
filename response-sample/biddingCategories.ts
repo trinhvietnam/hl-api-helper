@@ -271,3 +271,16 @@ var responseListBiddingCategoriesOfProject = {
         }
     ]
 }
+
+var responseUpdateCateogry = {
+    "error": null,
+    "data": {
+        "info": {
+            "queriedHost": "172.104.49.141:9042",
+            "triedHosts": {},
+            "achievedConsistency": 10
+        },
+        "columns": null,
+        "pageState": null
+    }
+}
