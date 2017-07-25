@@ -284,3 +284,8 @@ var responseUpdateCateogry = {
         "pageState": null
     }
 }
+
+var responseDeleteCategory = {
+    "error": null,
+    "data": true
+}
