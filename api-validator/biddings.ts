@@ -1,8 +1,8 @@
-import {CONTRACTOR, PROJECT, BIDDING_CATEGORY} from "../constants/database/EntityName";
-import {CURRENCY_UNIT_USD,CURRENCY_UNIT_VND} from "../constants/database/Common";
-import {Validation} from "../constants/schema/Validation";
-import {BIDDING_ROLE, SENDING_STATUS, RECEIVE_STATUS, BIDDING_STATUS} from "../constants/database/Biddings";
-import {ModelBidding} from "../models/ModelBidding";
+import {Validation} from "../../constants/schema/Validation";
+import {CONTRACTOR, BIDDING_CATEGORY, PROJECT} from "../../constants/database/EntityName";
+import {BIDDING_ROLE, BIDDING_STATUS, RECEIVE_STATUS} from "../../constants/database/Biddings";
+import {BiddingCategoryFields} from "../biddingCategory/BiddingCategoryFields";
+import {BiddingFields} from "./BiddingFields";
 /**
  * Created by nam on 3/29/2017.
  */
@@ -14,8 +14,7 @@ export const VALIDATION_BIDDING = {
         fromType: Joi.string().valid(CONTRACTOR).required(),
         toId: Validation.ID.required(), // Là Id bidding_category
         toType: Joi.string().valid(BIDDING_CATEGORY).required(),
-        toParentId:Validation.ID.required(),
-        toParentType:Joi.string().valid(PROJECT).required(),
+        projectId:Validation.ID.when('toType', { is: BIDDING_CATEGORY, then: Joi.required() }),
         contentLetter: Joi.string().max(500).required(),
         timeSendBidding: Joi.string(),
         note: Joi.string(),
@@ -27,7 +26,7 @@ export const VALIDATION_BIDDING = {
 export const VALIDATION_GET_CANDIDATE_BIDDING = {
     options: {allowUnknownBody: false},
     body: {
-        toType: Joi.string().valid(PROJECT).required()
+        toType: Joi.string().valid(BIDDING_CATEGORY).required()
     }
 };
 export const VALIDATION_GET_CANDIDATE_TO_INVITE_BIDDING = {
@@ -53,8 +52,8 @@ export const VALIDATION_GET_LIST_BIDDINGS_TO = {
         fromId: Joi.number(),
         fromType: Joi.string().valid(CONTRACTOR),
         toId: Joi.number().required(),
-        toType: Joi.string().valid(BIDDING_CATEGORY,PROJECT).required(),
-        toParentId:Validation.ID
+        toType: Joi.string().valid(BIDDING_CATEGORY).required(),
+        projectId:Validation.ID
             .when('toType', {is: BIDDING_CATEGORY, then: Joi.required() })
     }
 }
@@ -75,8 +74,8 @@ export const VALIDATION_UPDATE_BIDDING = {
     body: {
         role: Joi.string().valid(BIDDING_ROLE.RECEIVER,BIDDING_ROLE.SENDER).required(),
         field:Joi.string().required()
-            .when('role', {is: BIDDING_ROLE.SENDER, then: Joi.valid(ModelBidding.FIELDS.sendingStatus) })
-            .when('role', {is: BIDDING_ROLE.RECEIVER, then: Joi.valid(ModelBidding.FIELDS.receiveStatus,ModelBidding.FIELDS.biddingStatus) }),
+            .when('role', {is: BIDDING_ROLE.SENDER, then: Joi.valid(BiddingFields.sendingStatus) })
+            .when('role', {is: BIDDING_ROLE.RECEIVER, then: Joi.valid(BiddingFields.receiveStatus,BiddingFields.biddingStatus) }),
         value: Joi.string().required()
             .when('role', {is: BIDDING_ROLE.SENDER, then: Joi.string().valid(BIDDING_STATUS.deleted) })
             .when('role', {is: BIDDING_ROLE.RECEIVER, then: Joi.string().valid(BIDDING_STATUS.deleted,RECEIVE_STATUS.disliked,RECEIVE_STATUS.liked,RECEIVE_STATUS.reviewing,BIDDING_STATUS.bidded)}),
