@@ -1,0 +1,77 @@
+/**
+ * Created by nam on 7/30/2017.
+ */
+var responseCandidateBidding = {
+    "error": null,
+    "data": [
+        {
+            "id": "1501385959771",
+            "address": "Phạm Hùng - Hà Nội",
+            "city": "Hà Nội",
+            "contacts": null,
+            "country": "Việt Nam",
+            "createdById": "910200869",
+            "description": null,
+            "district": "Cầu Giấy",
+            "documents": null,
+            "email": "vi@gmail.com",
+            "entityName": null,
+            "entityStatus": "1",
+            "fax": null,
+            "finances": null,
+            "foundedYear": 1960,
+            "houselinkranking": null,
+            "isHouseLinkMember": null,
+            "isVerifiedicense": null,
+            "language": null,
+            "location": null,
+            "logo": null,
+            "mainMarkets": null,
+            "modifiedById": null,
+            "name": "Tong cong ty Sông Đà",
+            "noSignName": "tong cong ty song da",
+            "numOfEmployees": null,
+            "numOfExpProject": null,
+            "numOfFollower": "0",
+            "numOfRating": "0",
+            "numOfRating1Star": "0",
+            "numOfRating2Star": "0",
+            "numOfRating3Star": "0",
+            "numOfRating4Star": "0",
+            "numOfRating5Star": "0",
+            "numOfView": "0",
+            "origination": "Việt Nam",
+            "ownerId": "910200869",
+            "ownerInfo": {
+                "id": 910200869,
+                "name": "Trịnh Viết Nam",
+                "avatar": null
+            },
+            "parentId": null,
+            "parentType": null,
+            "phone": "0934523 32420",
+            "price": null,
+            "qualityManagement": null,
+            "revenue": "123454535",
+            "subBusiness": null,
+            "taxCode": null,
+            "timeCreate": null,
+            "timeModify": null,
+            "totalRanking": null,
+            "type": null,
+            "typeCompany": 1,
+            "typeOfBusiness": null,
+            "typeOfCompany": null,
+            "typeOfConstruction": null,
+            "typeOfContractor": [
+                "1.1",
+                "1.2"
+            ],
+            "typeOfProject": null,
+            "unitPrice": "VND",
+            "unitRevenue": "VND",
+            "wallImage": null,
+            "website": null
+        }
+    ]
+}
