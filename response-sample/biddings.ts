@@ -138,3 +138,44 @@ var responseBididng ={
         "createByUserId": 910200869
     }
 }
+var responseDetailBidding = {
+    "error": null,
+    "data": {
+        "timeCreate": "2017-08-03T19:32:15.962Z",
+        "timeModify": "2017-08-03T19:32:15.962Z",
+        "id": 842572596,
+        "biddingStatus": "bidding",
+        "totalMoney": 10000000,
+        "unitMoney": "VND",
+        "totalTime": 1,
+        "unitTime": "DAY",
+        "version": 1,
+        "sendingStatus": "waiting",
+        "receiveStatus": "notyetview",
+        "toType": "biddingCategory",
+        "toId": 1501780677697,
+        "projectId": 1493340729194,
+        "fromId": 1501385959771,
+        "fromType": "contractor",
+        "contentLetter": "Thư chào thầu",
+        "documents": [
+            {
+                "name": "Ban vẽ thiết kế sân chơi",
+                "url": "url",
+                "type": "pdf",
+                "fileId": "fileId",
+                "timeCreate": "timeCreate"
+            }
+        ],
+        "work": [
+            {
+                "name": "Thiế kế sân chơi",
+                "unitMoney": "VND",
+                "unitTime": "DAY",
+                "money": 10000000,
+                "time": 1
+            }
+        ],
+        "createByUserId": 910200869
+    }
+}

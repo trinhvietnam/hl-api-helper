@@ -20,7 +20,7 @@ export const VALIDATION_BIDDING = {
         note: Joi.string(),
         otherRequirement: Joi.string(),
         documents: Joi.array().items(Validation.OBJECT_DOCUMENT).required(),
-        work: Joi.array().items(Validation.OBJECT_WORK_IN_BIDDING).required()
+        work: Joi.array().items(Validation.OBJECT_WORK_IN_BIDDING).required(),
     }
 };
 export const VALIDATION_GET_CANDIDATE_BIDDING = {
@@ -66,7 +66,9 @@ export const VALIDATION_ACCEPT_BIDDING = {
 export const VALIDATION_DETAIL_BIDDING = {
     options: {allowUnknownBody: false},
     body: {
-        role: Joi.string().valid(BIDDING_ROLE.RECEIVER,BIDDING_ROLE.SENDER).required(),
+        fromId: Joi.number().required(),
+        fromType: Joi.string().valid(CONTRACTOR,PROJECT).required(),
+        id: Validation.ID.required()
     }
 };
 export const VALIDATION_UPDATE_BIDDING = {
