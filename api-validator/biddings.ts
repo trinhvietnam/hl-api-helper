@@ -72,15 +72,25 @@ export const VALIDATION_DETAIL_BIDDING = {
 export const VALIDATION_UPDATE_BIDDING = {
     options: {allowUnknownBody: false},
     body: {
-        role: Joi.string().valid(BIDDING_ROLE.RECEIVER,BIDDING_ROLE.SENDER).required(),
-        field:Joi.string().required()
-            .when('role', {is: BIDDING_ROLE.SENDER, then: Joi.valid(BiddingFields.sendingStatus) })
-            .when('role', {is: BIDDING_ROLE.RECEIVER, then: Joi.valid(BiddingFields.receiveStatus,BiddingFields.biddingStatus) }),
+        id: Validation.ID.required(),
+        updateById: Validation.ID.required(),
+        updateByType: Joi.string().valid(PROJECT, CONTRACTOR),
+        role: Joi.string().valid(BIDDING_ROLE.RECEIVER, BIDDING_ROLE.SENDER).required(),  // là RECEIVER hoặc SENDER
+        field: Joi.string().required()
+            .when('role', {is: BIDDING_ROLE.SENDER, then: Joi.valid(BiddingFields.sendingStatus)})  // giá trị trường này là sendingStatus
+            .when('role', {
+                is: BIDDING_ROLE.RECEIVER,
+                then: Joi.valid(BiddingFields.receiveStatus, BiddingFields.biddingStatus) // giá trị trường này là biddingStatus
+            }),
         value: Joi.string().required()
-            .when('role', {is: BIDDING_ROLE.SENDER, then: Joi.string().valid(BIDDING_STATUS.deleted) })
-            .when('role', {is: BIDDING_ROLE.RECEIVER, then: Joi.string().valid(BIDDING_STATUS.deleted,RECEIVE_STATUS.disliked,RECEIVE_STATUS.liked,RECEIVE_STATUS.reviewing,BIDDING_STATUS.bidded)}),
+            .when('role', {is: BIDDING_ROLE.SENDER, then: Joi.string().valid(BIDDING_STATUS.deleted)})
+            .when('role', {
+                is: BIDDING_ROLE.RECEIVER,
+                then: Joi.string().valid(BIDDING_STATUS.deleted, RECEIVE_STATUS.disliked, RECEIVE_STATUS.liked, RECEIVE_STATUS.reviewing, BIDDING_STATUS.bidded)
+            }),
     }
 };
+
 
 export const VALIDATION_INVITE_BIDDING = {
     options: {allowUnknownBody: false},
