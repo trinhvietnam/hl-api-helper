@@ -49,12 +49,10 @@ export const VALIDATION_GET_LIST_BIDDINGS_FROM = {
 export const VALIDATION_GET_LIST_BIDDINGS_TO = {
     options: {allowUnknownBody: false},
     body: {
-        fromId: Joi.number(),
-        fromType: Joi.string().valid(CONTRACTOR),
+        actorId: Joi.number().required(),
+        actorType: Joi.string().valid(CONTRACTOR,PROJECT).required(),
         toId: Joi.number().required(),
-        toType: Joi.string().valid(BIDDING_CATEGORY).required(),
-        projectId:Validation.ID
-            .when('toType', {is: BIDDING_CATEGORY, then: Joi.required() })
+        toType: Joi.string().valid(BIDDING_CATEGORY).required()
     }
 }
 export const VALIDATION_ACCEPT_BIDDING = {
