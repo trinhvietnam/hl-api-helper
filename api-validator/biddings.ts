@@ -34,7 +34,11 @@ export const VALIDATION_GET_CANDIDATE_TO_INVITE_BIDDING = {
     body: {
         page: Joi.number(),
         name: Joi.string(),
-        toType: Joi.string().valid(CONTRACTOR).required()
+        toType: Joi.string().valid(BIDDING_CATEGORY).required(),
+        toId: Validation.ID.required(),
+        actorId: Validation.ID.required(),
+        actorType: Joi.string().valid(PROJECT,CONTRACTOR).required(),
+        projectId: Validation.ID.when('toType', {is: BIDDING_CATEGORY, then: Joi.required()}),
     }
 };
 export const VALIDATION_GET_LIST_BIDDINGS_FROM = {
