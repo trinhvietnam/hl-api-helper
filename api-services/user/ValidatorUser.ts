@@ -1,6 +1,6 @@
-import {USER_ACCOUNT, COMPANY_ACCOUNT} from "../constants/database/Account";
-import {Validation} from "../constants/schema/Validation";
-import {PROJECT, CONTRACTOR} from "../constants/database/EntityName";
+import {USER_ACCOUNT, COMPANY_ACCOUNT} from "../../constants/database/Account";
+import {Validation} from "../../constants/schema/Validation";
+import {PROJECT, CONTRACTOR} from "../../constants/database/EntityName";
 /**
  * Created by NamTV on 3/28/2017.
  */
@@ -11,27 +11,27 @@ export const VALIDATION_ACCOUNTS_DETAIL_ONE ={
         id: Joi.number().required()
     }
 }
+
 export const VALIDATION_ACCOUNTS_UPDATE ={
     options: { allowUnknownBody: false },
     body: {
         type: Joi.string().valid(USER_ACCOUNT,COMPANY_ACCOUNT),// User hoặc công ty
         name: Joi.string().max(200),
         lastName: Joi.string().max(200),
-        taxCode: Joi.string().when('type', { is: COMPANY_ACCOUNT, then: Joi.required() }),
+        taxCode: Joi.string(),
         address: Joi.string().max(200),
         location: Joi.object().keys({
             lon:Joi.number().min(-180).max(180),
             lat:Joi.number().min(-180).max(180),
         }),
-        city: Joi.string().max(50).required(),
-        country: Joi.string().max(50).required(),
+        city: Joi.string().max(50),
+        country: Joi.string().max(50),
         district: Joi.string().max(50),
         phone: Joi.string().max(15),
         fax: Joi.string().max(15),
         website: Joi.string().max(200),
-        email: Joi.string().email().required(),
+        email: Joi.string().email(),
         language: Validation.LANGUAGE,
-        password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
         avatar: Validation.LOGO,
         emailNotifications: Joi.object().keys(),
     }
