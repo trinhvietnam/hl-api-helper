@@ -96,6 +96,12 @@ export const VALIDATION_PROJECTS_CREATE = {
             quantity: Joi.string().required(),
             standard: Joi.string().required(),
         })),
+        stage: Joi.string(),
+        status: Joi.string(),
+        propertyType: Joi.string(),
+        subPropertyType: Joi.string(),
+        purpose: Joi.string(),
+        ownerRoll: Joi.string()
     }
 }
 
@@ -162,5 +168,11 @@ export const VALIDATION_PROJECTS_UPDATE = {
         })),
         listImage: Validation.LIST_IMAGE,
         listVideo: Validation.LIST_VIDEO,
+        stage: Joi.string(),
+        status: Joi.string(),
+        propertyType: Joi.string(),
+        subPropertyType: Joi.string(),
+        purpose: Joi.string(),
+        ownerRoll: Joi.string()
     }
 }
