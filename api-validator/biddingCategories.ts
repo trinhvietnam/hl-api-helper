@@ -14,6 +14,15 @@ export const VALIDATION_LIST_BIDDING_CATEGORY = {
         projectId: Joi.number().required(),
     }
 }
+export const VALIDATION_DETAIL_BIDDING_CATEGORY = {
+    options: {allowUnknownBody: false},
+    body: {
+        projectId: Joi.number().required(),
+    },
+    params:{
+        id:Joi.number().required()
+    }
+}
 export const VALIDATION_DELETE_BIDDING_CATEGORY = {
     options: {allowUnknownBody: false},
     body: {
@@ -78,9 +87,9 @@ export const VALIDATION_CREATE_BIDDING_ITEM = {
         allowSealedBids: Joi.boolean(),
         description:Joi.string(),
         unitCurrency: Joi.string(),
-        works:Joi.array().items(Joi.object()),
-        materials:Joi.array().items(Joi.object()),
-        documents:Joi.array().items(Joi.object()),
+        categoryWorks:Joi.array().items(Joi.object()),
+        categoryMaterials:Joi.array().items(Joi.object()),
+        categoryDocuments:Joi.array().items(Joi.object()),
         invitedEmails:Joi.array().items(Joi.string()),
         // areaOfLand: Validation.AREA, // Dien tich dat
         // unitAreaOfLand: Validation.AREA_UNIT,
@@ -143,10 +152,11 @@ export const VALIDATION_UPDATE_BIDDING_ITEM = {
         allowAlternativeBids: Joi.boolean(),
         allowSealedBids: Joi.boolean(),
         description:Joi.string(),
-        documents: Joi.array().items(Validation.OBJECT_DOCUMENT),
+        categoryDocuments: Joi.array().items(Joi.object()),
+        categoryMaterials:Joi.array().items(Joi.object()),
         unitCurrency: Validation.CURRENCY_UNIT,
         invitedEmails:Joi.array().items(Joi.string()),
-
+        categoryWorks:Joi.array().items(Joi.object()),
         // areaOfLand: Validation.AREA, // Dien tich dat
         // unitAreaOfLand: Validation.AREA_UNIT,
 
