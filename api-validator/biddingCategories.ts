@@ -30,7 +30,7 @@ export const VALIDATION_CREATE_BIDDING_ITEM = {
         projectId: Joi.number().required(),
         createById: Joi.number().required(),
         createByType: Joi.string().valid(PROJECT,CONTRACTOR).required(),
-        typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR.required(),
+        // typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR.required(),
         // typeOfContruction: Validation.TYPE_OF_CONTRUCTION,
         // typeOfProject: Validation.TYPE_OF_PROJECT,
         name: Validation.NAME.required(),
@@ -57,7 +57,8 @@ export const VALIDATION_CREATE_BIDDING_ITEM = {
         // biddingForm: Joi.number(), //Hình thức đấu thầu
 
         countryOfContractor: Validation.COUNTRY,
-        districtOfContractor: Validation.COUNTRY,
+        districtOfContractor: Validation.DISTRICT,
+        cityOfContractor: Validation.CITY,
 
         bidOpenTime: Validation.DATE, // Thời gian mở thầu
         bidCloseTime: Validation.DATE, // Thời gian đóng thầu
@@ -71,6 +72,13 @@ export const VALIDATION_CREATE_BIDDING_ITEM = {
 
         investment: Validation.INVESTMENT,
         unitInvestment: Validation.CURRENCY_UNIT,
+
+        bidType:Joi.string(),
+        allowAlternativeBids: Joi.boolean(),
+        allowSealedBids: Joi.boolean(),
+        description:Joi.string(),
+        documents: Joi.array().items(Validation.OBJECT_DOCUMENT),
+        unitCurrency: Joi.string(),
 
         // areaOfLand: Validation.AREA, // Dien tich dat
         // unitAreaOfLand: Validation.AREA_UNIT,
@@ -128,6 +136,14 @@ export const VALIDATION_UPDATE_BIDDING_ITEM = {
 
         investment: Validation.INVESTMENT,
         unitInvestment: Validation.CURRENCY_UNIT,
+
+        bidType:Joi.string(),
+        allowAlternativeBids: Joi.boolean(),
+        allowSealedBids: Joi.boolean(),
+        description:Joi.string(),
+        documents: Joi.array().items(Validation.OBJECT_DOCUMENT),
+        unitCurrency: Validation.CURRENCY_UNIT,
+
 
         // areaOfLand: Validation.AREA, // Dien tich dat
         // unitAreaOfLand: Validation.AREA_UNIT,
