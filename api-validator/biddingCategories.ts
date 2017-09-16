@@ -77,9 +77,11 @@ export const VALIDATION_CREATE_BIDDING_ITEM = {
         allowAlternativeBids: Joi.boolean(),
         allowSealedBids: Joi.boolean(),
         description:Joi.string(),
-        documents: Joi.array().items(Validation.OBJECT_DOCUMENT),
         unitCurrency: Joi.string(),
-
+        works:Joi.array().items(Joi.object()),
+        materials:Joi.array().items(Joi.object()),
+        documents:Joi.array().items(Joi.object()),
+        invitedEmails:Joi.array().items(Joi.string()),
         // areaOfLand: Validation.AREA, // Dien tich dat
         // unitAreaOfLand: Validation.AREA_UNIT,
 
@@ -143,7 +145,7 @@ export const VALIDATION_UPDATE_BIDDING_ITEM = {
         description:Joi.string(),
         documents: Joi.array().items(Validation.OBJECT_DOCUMENT),
         unitCurrency: Validation.CURRENCY_UNIT,
-
+        invitedEmails:Joi.array().items(Joi.string()),
 
         // areaOfLand: Validation.AREA, // Dien tich dat
         // unitAreaOfLand: Validation.AREA_UNIT,
