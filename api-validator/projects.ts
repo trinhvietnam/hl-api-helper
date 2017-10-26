@@ -1,10 +1,10 @@
-import {Validation} from "../constants/schema/Validation";
 /**
  * Created by nam on 3/26/2017.
  */
 /*
  * Validation for rounter projects
  * */
+import {Validation} from "../../constants/schema/Validation";
 var Joi = require('joi');
 export const VALIDATION_PROJECTS_LIST = {
     options: {allowUnknownBody: false},
@@ -81,21 +81,17 @@ export const VALIDATION_PROJECTS_CREATE = {
         investment: Validation.INVESTMENT,
         unitInvestment: Validation.CURRENCY_UNIT,
 
-        areaOfLand: Validation.AREA, // Dien tich dat
+
+        areaOfLandMin: Validation.AREA, // Dien tich dat
+        areaOfLandMax: Validation.AREA, // Dien tich dat
         unitAreaOfLand: Validation.AREA_UNIT,
 
-        contructionArea: Validation.AREA,//Dien tich xay dung
+        contructionAreaMin: Validation.AREA,//Dien tich xay dung
+        contructionAreaMax: Validation.AREA,//Dien tich xay dung
         unitContructionArea: Validation.AREA_UNIT,
-        categories: Joi.array().items(Joi.object().keys({
-            category: Joi.string().required(),
-            quantity: Joi.string().required(),
-            area: Joi.string().required(),
-        })),
-        materials: Joi.array().items(Joi.object().keys({
-            material: Joi.string().required(),
-            quantity: Joi.string().required(),
-            standard: Joi.string().required(),
-        })),
+        projectMaterials:Joi.array().items(Joi.object()),
+        projectDocuments:Joi.array().items(Joi.object()),
+
         stage: Joi.string(),
         status: Joi.string(),
         propertyType: Joi.string(),
@@ -155,19 +151,23 @@ export const VALIDATION_PROJECTS_UPDATE = {
 
         contructionArea: Validation.AREA,//Dien tich xay dung
         unitContructionArea: Validation.AREA_UNIT,
-        documents: Joi.array().items(Validation.OBJECT_DOCUMENT),
-        categories: Joi.array().items(Joi.object().keys({
-            category: Joi.string().required(),
-            quantity: Joi.string().required(),
-            area: Joi.string().required(),
-        })),
-        materials: Joi.array().items(Joi.object().keys({
-            material: Joi.string().required(),
-            quantity: Joi.string().required(),
-            standard: Joi.string().required(),
-        })),
+        materials:Joi.array().items(Joi.object()),
+        documents:Joi.array().items(Joi.object()),
+        //
+        // documents: Joi.array().items(Validation.OBJECT_DOCUMENT),
+        // categories: Joi.array().items(Joi.object().keys({
+        //     category: Joi.string().required(),
+        //     quantity: Joi.string().required(),
+        //     area: Joi.string().required(),
+        // })),
+        // materials: Joi.array().items(Joi.object().keys({
+        //     material: Joi.string().required(),
+        //     quantity: Joi.string().required(),
+        //     standard: Joi.string().required(),
+        // })),
         listImage: Validation.LIST_IMAGE,
         listVideo: Validation.LIST_VIDEO,
+
         stage: Joi.string(),
         status: Joi.string(),
         propertyType: Joi.string(),
