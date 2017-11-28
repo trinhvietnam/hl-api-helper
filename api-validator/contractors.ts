@@ -1,6 +1,10 @@
-import {DOCUMENT, CATEGORY_PROJECT, RATING} from "../constants/database/EntityName";
-import {Validation} from "../constants/schema/Validation";
-import {USER_ACCOUNT, COMPANY_ACCOUNT} from "../constants/database/Account";
+/**
+ * Created by nam on 3/26/2017.
+ */
+/*
+ * Validation for rounter projects
+ * */
+import {Validation} from "../../constants/schema/Validation";
 /**
  * Created by nam on 3/26/2017.
  */
@@ -13,7 +17,7 @@ export const VALIDATION_CONTRACTORS_LIST = {
     body: {
         city: Joi.string(),
         typeOfContractor: Joi.string(),
-        typeOfContruction: Joi.number(),
+        typeOfConstruction: Joi.number(),
         typeOfProject: Joi.number(),
         typeOfCompany: Joi.number(),
         name: Joi.string(),
@@ -33,8 +37,8 @@ export const VALIDATION_CONTRACTORS_CREATE = {
     options: {allowUnknownBody: false},
     body: {
         typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR.required(),
-        typeOfContruction: Validation.ARRAY_TYPE_OF_CONTRUCTION,
-        typeOfProject: Validation.ARRAY_TYPE_OF_PROJECT,
+        typeOfConstruction: Validation.ARRAY_TYPE_OF_CONTRUCTION.min(0).required(),
+        typeOfProject: Validation.ARRAY_TYPE_OF_PROJECT.min(0).required(),
         name: Validation.NAME.required(),
         address: Validation.ADDRESS.required(),
         location: Validation.LOCATION,
@@ -66,10 +70,10 @@ export const VALIDATION_CONTRACTORS_CREATE = {
             totalLiabilitie: Validation.REVENUE.required(),
             charterCapital: Validation.REVENUE.required(),
             currencyUnit: Validation.CURRENCY_UNIT.required(),
-        })),
+        })).min(0).required(),
         projectExperiences: Joi.array().items(Joi.object().keys({
             typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR.required(),
-            typeOfContruction: Validation.TYPE_OF_CONTRUCTION,
+            typeOfConstruction: Validation.TYPE_OF_CONTRUCTION,
             typeOfProject: Validation.TYPE_OF_PROJECT,
             name: Validation.NAME.required(),
             address: Validation.ADDRESS.required(),
@@ -105,8 +109,8 @@ export const VALIDATION_CONTRACTORS_CREATE = {
             minimumRevenueOfContractor: Validation.REVENUE,//
             unitRevenueOfContractor: Validation.CURRENCY_UNIT,
             otherRequirements: Joi.string(),
-            listImage: Joi.array().items(Joi.string()),
-            listVideo: Joi.array().items(Joi.string()),
+            listImage: Joi.array().items(Joi.string()).min(0).required(),
+            listVideo: Joi.array().items(Joi.string()).min(0).required(),
             investment: Validation.INVESTMENT,
             unitInvestment: Validation.CURRENCY_UNIT,
 
@@ -115,7 +119,20 @@ export const VALIDATION_CONTRACTORS_CREATE = {
 
             contructionArea: Validation.AREA,//Dien tich xay dung
             unitContructionArea: Validation.AREA_UNIT,
-        }))
+        })).min(0).required(),
+        contacts: Joi.array().items(Joi.object().keys({
+            name: Joi.string().required(),
+            lastName: Joi.string(),
+            phone: Joi.string(),
+            mobile: Joi.string().required(),
+            fax: Joi.string(),
+            website: Joi.string(),
+            about: Joi.string().required(),
+            email: Joi.string().required(),
+            position: Joi.string().required(),
+            title: Joi.string().required()
+        })).min(0).required(),
+        documents: Joi.array().items(Joi.object()).min(0).required(),
     }
 }
 
@@ -123,7 +140,7 @@ export const VALIDATION_CONTRACTORS_UPDATE = {
     options: {allowUnknownBody: false},
     body: {
         typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR,
-        typeOfContruction: Validation.ARRAY_TYPE_OF_CONTRUCTION,
+        typeOfConstruction: Validation.ARRAY_TYPE_OF_CONTRUCTION,
         typeOfProject: Validation.ARRAY_TYPE_OF_PROJECT,
         name: Validation.NAME,
         address: Validation.ADDRESS,
@@ -161,7 +178,7 @@ export const VALIDATION_CONTRACTORS_UPDATE = {
             email: Joi.string().required(),
             position: Joi.string().required(),
             title: Joi.string().required()
-        })),
+        })).min(1),
         finances: Joi.array().items(Joi.object().keys({
             year: Validation.FOUNDED_YEAR.required(),
             revenue: Validation.REVENUE.required(),
@@ -170,10 +187,10 @@ export const VALIDATION_CONTRACTORS_UPDATE = {
             charterCapital: Validation.REVENUE.required(),
             currencyUnit: Validation.CURRENCY_UNIT.required(),
         })),
-        documents: Joi.array().items(Validation.OBJECT_DOCUMENT),
+        documents: Joi.array().items(Validation.OBJECT_DOCUMENT).min(0),
         projectExperiences: Joi.array().items(Joi.object().keys({
             typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR.required(),
-            typeOfContruction: Validation.TYPE_OF_CONTRUCTION,
+            typeOfConstruction: Validation.TYPE_OF_CONTRUCTION,
             typeOfProject: Validation.TYPE_OF_PROJECT,
             name: Validation.NAME.required(),
             address: Validation.ADDRESS.required(),
@@ -209,8 +226,8 @@ export const VALIDATION_CONTRACTORS_UPDATE = {
             minimumRevenueOfContractor: Validation.REVENUE,//
             unitRevenueOfContractor: Validation.CURRENCY_UNIT,
             otherRequirements: Joi.string(),
-            listImage: Joi.array().items(Joi.string()),
-            listVideo: Joi.array().items(Joi.string()),
+            listImage: Joi.array().items(Joi.string()).min(0),
+            listVideo: Joi.array().items(Joi.string()).min(0),
             investment: Validation.INVESTMENT,
             unitInvestment: Validation.CURRENCY_UNIT,
 

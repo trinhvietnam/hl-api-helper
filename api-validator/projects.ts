@@ -9,22 +9,26 @@ var Joi = require('joi');
 export const VALIDATION_PROJECTS_LIST = {
     options: {allowUnknownBody: false},
     body: {
-        city: Joi.string(),
-        typeOfContractor: Validation.TYPE_OF_CONTRACTOR,
-        typeOfContruction: Validation.TYPE_OF_CONTRUCTION,
-        typeOfProject: Validation.TYPE_OF_PROJECT,
+        city: Joi.array().items(Joi.string()),
+        typeOfContractor: Joi.array().items(Joi.string()),
+        typeOfConstruction: Joi.array().items(Joi.string()),
+        typeOfProject: Joi.array().items(Joi.string()),
         typeOfCompany: Validation.TYPE_OF_COMPANY,
 
         name: Joi.string(),
-        investment: Validation.INVESTMENT,
+        investment: Joi.array().items(Joi.number()),//Validation.INVESTMENT,
         phase: Validation.PHASE,
-        typeOfInvestment: Validation.TYPE_OF_INVESTMENT,
+        typeOfInvestment: Joi.array().items(Joi.number()),//Validation.TYPE_OF_INVESTMENT,
         areaOfLand: Validation.AREA,
         contructionArea: Validation.AREA,
         bidOpenTime: Validation.DATE,
         bidCloseTime: Validation.DATE,
         startBuildTime: Validation.DATE,
+        startBuildTimeMin: Validation.DATE,
+        startBuildTimeMax: Validation.DATE,
         endBuildTime: Validation.DATE,
+        endBuildTimeMin: Validation.DATE,
+        endBuildTimeMax: Validation.DATE,
         listImage: Validation.LIST_IMAGE,
         listVideo: Validation.LIST_VIDEO,
         page:Joi.number().min(1)
@@ -39,8 +43,8 @@ export const VALIDATION_PROJECTS_DETAIL_ONE = {
 export const VALIDATION_PROJECTS_CREATE = {
     options: {allowUnknownBody: false},
     body: {
-        typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR.required(),
-        typeOfContruction: Validation.TYPE_OF_CONTRUCTION,
+        typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR,
+        typeOfConstruction: Validation.TYPE_OF_CONTRUCTION,
         typeOfProject: Validation.TYPE_OF_PROJECT,
         name: Validation.NAME.required(),
         address: Validation.ADDRESS.required(),
@@ -51,6 +55,10 @@ export const VALIDATION_PROJECTS_CREATE = {
         phase: Validation.PHASE,// Giai đoạn của dự án bao gồm [chuẩn bị, đấu thầu, thi công, hoàn thành]
         startBuildTime: Validation.DATE,
         endBuildTime: Validation.DATE,
+        startBuildTimeMin: Validation.DATE,
+        startBuildTimeMax: Validation.DATE,
+        endBuildTimeMin: Validation.DATE,
+        endBuildTimeMax: Validation.DATE,
 
         fromBudget: Validation.BUGET,
         endBudget: Validation.BUGET,
@@ -76,8 +84,8 @@ export const VALIDATION_PROJECTS_CREATE = {
         minimumRevenueOfContractor: Validation.REVENUE,//
         unitRevenueOfContractor: Validation.CURRENCY_UNIT,
         otherRequirements: Joi.string(),
-        listImage: Joi.array().items(Joi.string()),
-        listVideo: Joi.array().items(Joi.string()),
+        listImage: Joi.array().items(Joi.string()).min(0).required(),
+        listVideo: Joi.array().items(Joi.string()).min(0).required(),
         investment: Validation.INVESTMENT,
         unitInvestment: Validation.CURRENCY_UNIT,
 
@@ -89,15 +97,16 @@ export const VALIDATION_PROJECTS_CREATE = {
         contructionAreaMin: Validation.AREA,//Dien tich xay dung
         contructionAreaMax: Validation.AREA,//Dien tich xay dung
         unitContructionArea: Validation.AREA_UNIT,
-        projectMaterials:Joi.array().items(Joi.object()),
-        projectDocuments:Joi.array().items(Joi.object()),
+        projectMaterials:Joi.array().items(Joi.object()).min(0).required(),
+        projectDocuments:Joi.array().items(Joi.object()).min(0).required(),
 
         stage: Joi.string(),
         status: Joi.string(),
         propertyType: Joi.string(),
         subPropertyType: Joi.string(),
         purpose: Joi.string(),
-        ownerRoll: Joi.string()
+        ownerRoll: Joi.string(),
+        description: Joi.string(),
     }
 }
 
@@ -105,7 +114,7 @@ export const VALIDATION_PROJECTS_UPDATE = {
     options: {allowUnknownBody: false},
     body: {
         typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR,
-        typeOfContruction: Validation.TYPE_OF_CONTRUCTION,
+        typeOfConstruction: Validation.TYPE_OF_CONTRUCTION,
         typeOfProject: Validation.TYPE_OF_PROJECT,
         name: Validation.NAME,
         address: Validation.ADDRESS,
@@ -116,7 +125,10 @@ export const VALIDATION_PROJECTS_UPDATE = {
         phase: Validation.PHASE,// Giai đoạn của dự án bao gồm [chuẩn bị, đấu thầu, thi công, hoàn thành]
         startBuildTime: Validation.DATE,
         endBuildTime: Validation.DATE,
-
+        startBuildTimeMin: Validation.DATE,
+        startBuildTimeMax: Validation.DATE,
+        endBuildTimeMin: Validation.DATE,
+        endBuildTimeMax: Validation.DATE,
         fromBudget: Validation.BUGET,
         endBudget: Validation.BUGET,
         unitBugget: Validation.CURRENCY_UNIT,
@@ -151,8 +163,8 @@ export const VALIDATION_PROJECTS_UPDATE = {
 
         contructionArea: Validation.AREA,//Dien tich xay dung
         unitContructionArea: Validation.AREA_UNIT,
-        materials:Joi.array().items(Joi.object()),
-        documents:Joi.array().items(Joi.object()),
+        projectMaterials:Joi.array().items(Joi.object()).min(0),
+        projectDocuments:Joi.array().items(Joi.object()).min(0),
         //
         // documents: Joi.array().items(Validation.OBJECT_DOCUMENT),
         // categories: Joi.array().items(Joi.object().keys({
@@ -165,14 +177,26 @@ export const VALIDATION_PROJECTS_UPDATE = {
         //     quantity: Joi.string().required(),
         //     standard: Joi.string().required(),
         // })),
-        listImage: Validation.LIST_IMAGE,
-        listVideo: Validation.LIST_VIDEO,
+        listImage: Validation.LIST_IMAGE.min(0),
+        listVideo: Validation.LIST_VIDEO.min(0),
 
         stage: Joi.string(),
         status: Joi.string(),
         propertyType: Joi.string(),
         subPropertyType: Joi.string(),
         purpose: Joi.string(),
-        ownerRoll: Joi.string()
+        ownerRoll: Joi.string(),
+        description: Joi.string(),
+
+
+
+
+        areaOfLandMin: Validation.AREA, // Dien tich dat
+        areaOfLandMax: Validation.AREA, // Dien tich dat
+
+        contructionAreaMin: Validation.AREA,//Dien tich xay dung
+        contructionAreaMax: Validation.AREA,//Dien tich xay dung
+
+
     }
 }

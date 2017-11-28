@@ -1,4 +1,3 @@
-
 /**
  * Created by nam on 3/26/2017.
  */
@@ -19,8 +18,8 @@ export const VALIDATION_DETAIL_BIDDING_CATEGORY = {
     body: {
         projectId: Joi.number().required(),
     },
-    params:{
-        id:Joi.number().required()
+    params: {
+        id: Joi.number().required()
     }
 }
 export const VALIDATION_DELETE_BIDDING_CATEGORY = {
@@ -29,7 +28,7 @@ export const VALIDATION_DELETE_BIDDING_CATEGORY = {
         projectId: Validation.ID.required(),
         id: Validation.ID.required(),
         deleteById: Validation.ID.required(),
-        deleteByType: Joi.string().valid(PROJECT,CONTRACTOR).required(),
+        deleteByType: Joi.string().valid(PROJECT, CONTRACTOR).required(),
     }
 }
 
@@ -38,9 +37,9 @@ export const VALIDATION_CREATE_BIDDING_ITEM = {
     body: {
         projectId: Joi.number().required(),
         createById: Joi.number().required(),
-        createByType: Joi.string().valid(PROJECT,CONTRACTOR).required(),
+        createByType: Joi.string().valid(PROJECT, CONTRACTOR).required(),
         // typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR.required(),
-        // typeOfContruction: Validation.TYPE_OF_CONTRUCTION,
+        // typeOfConstruction: Validation.TYPE_OF_CONTRUCTION,
         // typeOfProject: Validation.TYPE_OF_PROJECT,
         name: Validation.NAME.required(),
         // address: Validation.ADDRESS.required(),
@@ -69,8 +68,8 @@ export const VALIDATION_CREATE_BIDDING_ITEM = {
         districtOfContractor: Validation.DISTRICT,
         cityOfContractor: Validation.CITY,
 
-        bidOpenTime: Validation.DATE, // Thời gian mở thầu
-        bidCloseTime: Validation.DATE, // Thời gian đóng thầu
+        bidOpenTime: Validation.DATE.required(), // Thời gian mở thầu
+        bidCloseTime: Validation.DATE.required(), // Thời gian đóng thầu
 
         minimumExperienceOfContractor: Joi.number(),
         creditRatingOfContractor: Validation.RANKING,// Mức tín nhiệm
@@ -82,15 +81,16 @@ export const VALIDATION_CREATE_BIDDING_ITEM = {
         investment: Validation.INVESTMENT,
         unitInvestment: Validation.CURRENCY_UNIT,
 
-        bidType:Joi.string(),
-        allowAlternativeBids: Joi.boolean(),
-        allowSealedBids: Joi.boolean(),
-        description:Joi.string(),
-        unitCurrency: Joi.string(),
-        categoryWorks:Joi.array().items(Joi.object()),
-        categoryMaterials:Joi.array().items(Joi.object()),
-        categoryDocuments:Joi.array().items(Joi.object()),
-        invitedEmails:Joi.array().items(Joi.string()),
+        bidType: Joi.string(),
+        allowAlternativeBids: Joi.boolean().required(),
+        allowSealedBids: Joi.boolean().required(),
+        description: Joi.string(),
+        unitCurrency: Joi.string().required(),
+
+        categoryWorks: Joi.array().items(Joi.object()).min(0).required(),
+        categoryMaterials: Joi.array().items(Joi.object()).min(0).required(),
+        categoryDocuments: Joi.array().items(Joi.object()).min(0).required(),
+        invitedEmails: Joi.array().items(Joi.string()),
         // areaOfLand: Validation.AREA, // Dien tich dat
         // unitAreaOfLand: Validation.AREA_UNIT,
 
@@ -105,9 +105,9 @@ export const VALIDATION_UPDATE_BIDDING_ITEM = {
         id: Validation.ID.required(),
         projectId: Joi.number().required(),
         updateById: Joi.number().required(),
-        updateByType: Joi.string().valid(PROJECT,CONTRACTOR).required(),
+        updateByType: Joi.string().valid(PROJECT, CONTRACTOR).required(),
         typeOfContractor: Validation.ARRAY_TYPE_OF_CONTRACTOR,
-        // typeOfContruction: Validation.TYPE_OF_CONTRUCTION,
+        // typeOfConstruction: Validation.TYPE_OF_CONTRUCTION,
         // typeOfProject: Validation.TYPE_OF_PROJECT,
         name: Validation.NAME,
         // address: Validation.ADDRESS.required(),
@@ -148,15 +148,15 @@ export const VALIDATION_UPDATE_BIDDING_ITEM = {
         investment: Validation.INVESTMENT,
         unitInvestment: Validation.CURRENCY_UNIT,
 
-        bidType:Joi.string(),
+        bidType: Joi.string(),
         allowAlternativeBids: Joi.boolean(),
         allowSealedBids: Joi.boolean(),
-        description:Joi.string(),
-        categoryDocuments: Joi.array().items(Joi.object()),
-        categoryMaterials:Joi.array().items(Joi.object()),
+        description: Joi.string(),
+        categoryDocuments: Joi.array().items(Joi.object()).min(0),
+        categoryMaterials: Joi.array().items(Joi.object()).min(0),
         unitCurrency: Validation.CURRENCY_UNIT,
-        invitedEmails:Joi.array().items(Joi.string()),
-        categoryWorks:Joi.array().items(Joi.object()),
+        invitedEmails: Joi.array().items(Joi.string()).min(0),
+        categoryWorks: Joi.array().items(Joi.object()).min(0),
         // areaOfLand: Validation.AREA, // Dien tich dat
         // unitAreaOfLand: Validation.AREA_UNIT,
 
@@ -171,7 +171,7 @@ export const VALIDATION_EXTRAS_CREATE_RATING = {
         star: Validation.RANKING.required(),
         content: Validation.DESCRIPTION.required(),
         ownerId: Joi.number().required(),
-        ownerType: Joi.string().valid(CONTRACTOR, ACCOUNT,PROJECT).required(),
+        ownerType: Joi.string().valid(CONTRACTOR, ACCOUNT, PROJECT).required(),
         senderId: Joi.number().required(),
         senderType: Joi.string().valid(CONTRACTOR, ACCOUNT).required()
     }
@@ -197,6 +197,5 @@ export const VALIDATION_EXTRAS_CREATE_DOCUMENT = {
 
 export const VALIDATION_EXTRAS_GET_CANDIDATE_RATING = {
     options: {allowUnknownBody: false},
-    body: {
-    }
+    body: {}
 }
